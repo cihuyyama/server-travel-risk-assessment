@@ -33,7 +33,9 @@ func Connect() {
 
 func Initialize() {
 
-	db, err := sql.Open("mysql", "root:@tcp(127.0.0.1:3306)/")
+	connectionString := fmt.Sprintf("%s:@tcp(%s:%s)/", os.Getenv("DB_USER"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"))
+
+	db, err := sql.Open("mysql", connectionString)
 	if err != nil {
 		panic(err)
 	}

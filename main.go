@@ -9,7 +9,7 @@ import (
 func main() {
 	initializers.LoadEnvVariables()
 
-	// database.Initialize()
+	database.Initialize()
 
 	database.Connect()
 

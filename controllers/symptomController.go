@@ -60,7 +60,7 @@ func GetSymptomByID(context *gin.Context) {
 
 	var symptomModel models.Symptom
 	if err := database.Instance.Where("id = ?", id).First(&symptomModel).Error; err != nil {
-		context.JSON(http.StatusNotFound, gin.H{"error": "Symptom tidak ditemukan"})
+		context.JSON(http.StatusNotFound, gin.H{"message": "Symptom tidak ditemukan", "status": "error"})
 		return
 	}
 
@@ -77,24 +77,24 @@ func GetSymptomByID(context *gin.Context) {
 func UpdateSymptom(context *gin.Context) {
 	symptomID, err := strconv.Atoi(context.Param("id"))
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "ID foto tidak valid"})
+		context.JSON(http.StatusBadRequest, gin.H{"message": "ID foto tidak valid", "status": "error"})
 		return
 	}
 	var symptomFormUpdate app.SymptomFormUpdate
 	if err := context.ShouldBindJSON(&symptomFormUpdate); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}
 
 	if _, err := govalidator.ValidateStruct(symptomFormUpdate); err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}
 
 	var symptom models.Symptom
 
 	if err := database.Instance.Where("id = ?", symptomID).First(&symptom).Error; err != nil {
-		context.JSON(http.StatusNotFound, gin.H{"error": "Symptom tidak ditemukan"})
+		context.JSON(http.StatusNotFound, gin.H{"message": "Symptom tidak ditemukan", "status": "error"})
 		return
 	}
 
@@ -112,7 +112,7 @@ func UpdateSymptom(context *gin.Context) {
 func DeleteSymptom(context *gin.Context) {
 	symptomID, err := strconv.Atoi(context.Param("id"))
 	if err != nil {
-		context.JSON(http.StatusBadRequest, gin.H{"error": "ID foto tidak valid"})
+		context.JSON(http.StatusBadRequest, gin.H{"message": "ID foto tidak valid", "status": "error"})
 		return
 	}
 
@@ -124,7 +124,7 @@ func DeleteSymptom(context *gin.Context) {
 	}
 
 	if err := database.Instance.Delete(&symptom).Error; err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}
 

@@ -82,7 +82,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "eyJhbGciOieJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDA1MDA5OTB9.Hhv0qZ5gXO3g0ybC7tDT3QAS8Sl8hfL0dMxV8vw3zg4grtsg",
 									"type": "string"
 								}
 							]
@@ -113,7 +113,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAyMTUyNjB9.Z1UoX9NsPzF7KqT70kZt0dMoS_wgxm0kjhxeMEDPfmM",
 									"type": "string"
 								}
 							]
@@ -267,7 +267,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
 									"type": "string"
 								}
 							]
@@ -367,6 +367,200 @@
 								"api",
 								"users",
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Travel History",
+			"item": [
+				{
+					"name": "get all travel history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/travels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"travels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get travel by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/travels/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"travels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create travel history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"city\": \"bandung\",\r\n    \"province\": \"jawa\",\r\n    \"duration\": \"7 hari\",\r\n    \"travel_purpose\": \"jualan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/travels",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"travels"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update travel history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"city\": \"bandung updated\",\r\n    \"province\": \"jawa\",\r\n    \"duration\": \"7 hari\",\r\n    \"travel_purpose\": \"jualan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/travels/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"travels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete travel history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/travels/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"travels",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
 							]
 						}
 					},

@@ -39,5 +39,15 @@ func SetupRouter() *gin.Engine {
 		protectedSymptom.DELETE("/symptoms/:id", controllers.DeleteSymptom)
 	}
 
+	protectedTravel := r.Group("/api")
+	protectedTravel.Use(middlewares.Authenticate())
+	{
+		protectedTravel.POST("/travels", controllers.CreateTravelHistory)
+		protectedTravel.GET("/travels", controllers.GetAllHistory)
+		protectedTravel.GET("/travels/:id", controllers.GetTravelHistoryByID)
+		protectedTravel.PUT("/travels/:id", controllers.UpdateTravelhistory)
+		protectedTravel.DELETE("/travels/:id", controllers.DeleteTravelHistory)
+	}
+
 	return r
 }

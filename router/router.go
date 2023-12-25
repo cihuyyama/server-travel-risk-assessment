@@ -2,6 +2,7 @@ package router
 
 import (
 	"travel-risk-assessment/controllers"
+	"travel-risk-assessment/database"
 	"travel-risk-assessment/middlewares"
 
 	"github.com/gin-gonic/gin"
@@ -14,6 +15,7 @@ func SetupRouter() *gin.Engine {
 	{
 		public.POST("/users/login", controllers.Login)
 		public.POST("/users/register", controllers.CreateUser)
+		public.GET("/migrate", database.ManualMigrate)
 	}
 
 	protected := r.Group("/api")
@@ -47,6 +49,16 @@ func SetupRouter() *gin.Engine {
 		protectedTravel.GET("/travels/:id", controllers.GetTravelHistoryByID)
 		protectedTravel.PUT("/travels/:id", controllers.UpdateTravelhistory)
 		protectedTravel.DELETE("/travels/:id", controllers.DeleteTravelHistory)
+	}
+
+	protectedMedical := r.Group("/api")
+	protectedMedical.Use(middlewares.Authenticate())
+	{
+		protectedMedical.POST("/medicals", controllers.CreateMedicalHistory)
+		protectedMedical.GET("/medicals", controllers.GetAllMedicalHistory)
+		protectedMedical.GET("/medicals/:id", controllers.GetMedicalHistoryByID)
+		protectedMedical.PUT("/medicals/:id", controllers.UpdateMedicalHistory)
+		protectedMedical.DELETE("/medicals/:id", controllers.DeleteMedicalHistory)
 	}
 
 	return r

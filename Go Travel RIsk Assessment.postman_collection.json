@@ -567,6 +567,174 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Database",
+			"item": [
+				{
+					"name": "migrate",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/migrate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"migrate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Medical History",
+			"item": [
+				{
+					"name": "Create medical history",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDM1OTg3OTJ9.8uQUYtkzY4NrX6C_bZr19pJWlco7guhSN1oRZHBRWQ0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"age\": \"20\",\r\n    \"preexisting_condition\": \"test\",\r\n    \"current_medication\": \"test\",\r\n    \"allergies\": \"test\",\r\n    \"previous_vaccination\": \"test\",\r\n    \"pregnant\": \"test\",\r\n    \"vaccine_bcg\": true,\r\n    \"vaccine_hepatitis\": true,\r\n    \"vaccine_dengue\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/medicals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"medicals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all medical history",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get medical history by id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "update medical history by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDM1OTg3OTJ9.8uQUYtkzY4NrX6C_bZr19pJWlco7guhSN1oRZHBRWQ0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"age\": \"20\",\r\n    \"preexisting_condition\": \"test updated\",\r\n    \"current_medication\": \"test\",\r\n    \"allergies\": \"test\",\r\n    \"previous_vaccination\": \"test\",\r\n    \"pregnant\": \"test\",\r\n    \"vaccine_bcg\": true,\r\n    \"vaccine_hepatitis\": true,\r\n    \"vaccine_dengue\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/medicals/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"medicals",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete medical history by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDM1OTg3OTJ9.8uQUYtkzY4NrX6C_bZr19pJWlco7guhSN1oRZHBRWQ0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/medicals/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"medicals",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

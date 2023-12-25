@@ -6,14 +6,15 @@ import (
 )
 
 type User struct {
-	ID        uint      `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
-	Username  string    `json:"username"`
-	Email     string    `json:"email" gorm:"unique"`
-	Password  string    `json:"password"`
-	Photos    []Photo   `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
-	Role      string    `json:"role" gorm:"default:user"`
-	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
-	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
+	ID           uint      `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
+	Username     string    `json:"username"`
+	Email        string    `json:"email" gorm:"unique"`
+	Password     string    `json:"password"`
+	Photos       []Photo   `gorm:"foreignKey:UserID;constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Role         string    `json:"role" gorm:"default:user"`
+	UserSymptoms []Symptom `gorm:"many2many:user_symptoms;"`
+	CreatedAt    time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt    time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
 
 func (user *User) HashPassword(password string) error {

@@ -154,9 +154,32 @@ func UpdateTravelhistory(context *gin.Context) {
 		return
 	}
 
+	tokenString := context.GetHeader("Authorization")
+	// Split the "Authorization" header to remove the "Bearer " prefix
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	// Get the token from the split
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
 	var travel models.TravelHistory
 
-	if err := database.Instance.Where("id = ?", travelID).First(&travel).Error; err != nil {
+	if err := database.Instance.Where("id = ? AND user_id = ?", travelID, user.ID).First(&travel).Error; err != nil {
 		context.JSON(http.StatusNotFound, gin.H{"message": "history tidak ditemukan", "status": "error"})
 		return
 	}

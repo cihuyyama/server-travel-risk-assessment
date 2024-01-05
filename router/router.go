@@ -56,7 +56,7 @@ func SetupRouter() *gin.Engine {
 	{
 		protectedMedical.POST("/medicals", controllers.CreateMedicalHistory)
 		protectedMedical.GET("/medicals", controllers.GetAllMedicalHistory)
-		protectedMedical.GET("/medicals/:id", controllers.GetMedicalHistoryByID)
+		protectedMedical.GET("/medicals/", controllers.GetMedicalHistoryByID)
 		protectedMedical.PUT("/medicals/:id", controllers.UpdateMedicalHistory)
 		protectedMedical.DELETE("/medicals/:id", controllers.DeleteMedicalHistory)
 	}

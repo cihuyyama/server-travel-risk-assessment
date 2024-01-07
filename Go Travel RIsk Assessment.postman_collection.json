@@ -41,6 +41,19 @@
 				},
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"\r",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -82,7 +95,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOieJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDA1MDA5OTB9.Hhv0qZ5gXO3g0ybC7tDT3QAS8Sl8hfL0dMxV8vw3zg4grtsg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -90,7 +103,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/symptoms/",
+							"raw": "http://localhost:5000/api/symptoms/?filter=u&sort_by=asc",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -100,6 +113,17 @@
 								"api",
 								"symptoms",
 								""
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "u"
+								},
+								{
+									"key": "sort_by",
+									"value": "asc",
+									"description": "asc atau desc"
+								}
 							]
 						}
 					},
@@ -113,7 +137,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAyMTUyNjB9.Z1UoX9NsPzF7KqT70kZt0dMoS_wgxm0kjhxeMEDPfmM",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -144,7 +168,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -153,7 +177,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"symptom_name\": \"Demam\",\r\n    \"symptom_char\": \"Terus menerus\"\r\n}",
+							"raw": "{\r\n    \"symptom_name\": \"mual\",\r\n    \"symptom_char\": \"sakit perut\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -184,7 +208,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -224,7 +248,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -267,7 +291,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -309,7 +333,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -349,7 +373,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDAxOTkyMzl9.1r0VKJFSQ9KdMj-5wCpnSlE4EP-RDhNxe7nCId3g8a4",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -385,7 +409,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -393,7 +417,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/travels",
+							"raw": "http://localhost:5000/api/travels?filter=a&sort_by=",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -402,6 +426,17 @@
 							"path": [
 								"api",
 								"travels"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "a"
+								},
+								{
+									"key": "sort_by",
+									"value": "",
+									"description": "asc / desc"
+								}
 							]
 						}
 					},
@@ -415,7 +450,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -437,7 +472,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "3"
 								}
 							]
 						}
@@ -452,7 +487,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -491,7 +526,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -500,7 +535,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"city\": \"bandung updated\",\r\n    \"province\": \"jawa\",\r\n    \"duration\": \"7 hari\",\r\n    \"travel_purpose\": \"jualan\"\r\n}",
+							"raw": "{\r\n    \"city\": \"cirebon\",\r\n    \"province\": \"jawa\",\r\n    \"duration\": \"7 hari\",\r\n    \"travel_purpose\": \"makan\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -522,7 +557,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": "3"
 								}
 							]
 						}
@@ -537,7 +572,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDI4MzIxODl9.n8Usvb_IjAlvCUikMlC20pBLtf9z2Ju_V-lDUrZFJZg",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -604,7 +639,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDM1OTg3OTJ9.8uQUYtkzY4NrX6C_bZr19pJWlco7guhSN1oRZHBRWQ0",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -638,16 +673,61 @@
 				{
 					"name": "Get all medical history",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/medicals",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"medicals"
+							]
+						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get medical history by id",
+					"name": "Get medical history by token",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/medicals/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"medicals",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -659,7 +739,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDM1OTg3OTJ9.8uQUYtkzY4NrX6C_bZr19pJWlco7guhSN1oRZHBRWQ0",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -705,7 +785,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwidXNlcm5hbWUiOiJjaWh1eXlhbWEiLCJlbWFpbCI6InRlc3RAbWFpbC5jb20iLCJleHAiOjE3MDM1OTg3OTJ9.8uQUYtkzY4NrX6C_bZr19pJWlco7guhSN1oRZHBRWQ0",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -728,6 +808,209 @@
 								{
 									"key": "id",
 									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Disease",
+			"item": [
+				{
+					"name": "get all disease",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/diseases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"diseases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get disease by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/diseases/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"diseases",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create disease",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"disease_name\": \"Malaria\",\r\n    \"disease_desc\": \"malaria\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/diseases",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"diseases"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update disease by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"disease_name\": \"DBD new\",\r\n    \"disease_desc\": \"demam berdarah\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/diseases/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"diseases",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete disease by id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/diseases/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"diseases",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2"
 								}
 							]
 						}

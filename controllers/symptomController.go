@@ -47,7 +47,19 @@ func CreateSymptom(context *gin.Context) {
 func GetAllSymptoms(context *gin.Context) {
 	var symptoms []models.Symptom
 
-	if err := database.Instance.Find(&symptoms).Error; err != nil {
+	filter := context.Query("filter")
+	sortBy := context.Query("sort_by")
+
+	query := database.Instance
+	if filter != "" {
+		query = query.Where("symptom_name LIKE ? OR symptom_char LIKE ?", "%"+filter+"%", "%"+filter+"%")
+	}
+
+	if sortBy != "" {
+		query = query.Order("symptom_name " + sortBy)
+	}
+
+	if err := query.Find(&symptoms).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}

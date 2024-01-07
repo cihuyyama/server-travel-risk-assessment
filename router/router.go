@@ -61,5 +61,15 @@ func SetupRouter() *gin.Engine {
 		protectedMedical.DELETE("/medicals/:id", controllers.DeleteMedicalHistory)
 	}
 
+	protectedDisease := r.Group("/api")
+	protectedDisease.Use(middlewares.Authenticate())
+	{
+		protectedDisease.POST("/diseases", controllers.CreateDisease)
+		protectedDisease.GET("/diseases", controllers.GetAllDiseases)
+		protectedDisease.GET("/diseases/:id", controllers.GetDiseaseByID)
+		protectedDisease.PUT("/diseases/:id", controllers.UpdateDiseaseByID)
+		protectedDisease.DELETE("/diseases/:id", controllers.DeleteDiseaseByID)
+	}
+
 	return r
 }

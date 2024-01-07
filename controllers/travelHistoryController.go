@@ -90,7 +90,19 @@ func GetAllHistory(context *gin.Context) {
 		return
 	}
 
-	if err := database.Instance.Table("travel_histories").Select("*").Where("travel_histories.user_id = ?", claims.ID).Scan(&travel).Error; err != nil {
+	filter := context.Query("filter")
+	sortBy := context.Query("sort_by")
+
+	query := database.Instance
+	if filter != "" {
+		query = query.Where("city LIKE ? OR province LIKE ?", "%"+filter+"%", "%"+filter+"%")
+	}
+
+	if sortBy != "" {
+		query = query.Order("created_at " + sortBy)
+	}
+
+	if err := query.Table("travel_histories").Select("*").Where("travel_histories.user_id = ?", claims.ID).Scan(&travel).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"data": "asjkdnaks", "message": err.Error(), "status": "error"})
 		return
 	}

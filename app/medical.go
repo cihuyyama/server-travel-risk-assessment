@@ -8,7 +8,7 @@ type MedicalHistoryForm struct {
 	Allergies            string `gorm:"column:allergies" json:"allergies"`
 	PreviousVaccination  string `gorm:"column:previous_vaccination" json:"previous_vaccination"`
 	Pregnant             string `gorm:"column:pregnant" json:"pregnant"`
-	VaccineBcg           bool   `gorm:"column:vaccine_bcg" json:"vaccine_bcg"`
-	VaccineHepatitis     bool   `gorm:"column:vaccine_hepatitis" json:"vaccine_hepatitis"`
-	VaccineDengue        bool   `gorm:"column:vaccine_dengue" json:"vaccine_dengue"`
+	VaccineBcg           bool   `gorm:"column:vaccine_bcg;default:false" json:"vaccine_bcg"`
+	VaccineHepatitis     bool   `gorm:"column:vaccine_hepatitis;default:false" json:"vaccine_hepatitis"`
+	VaccineDengue        bool   `gorm:"column:vaccine_dengue;default:false" json:"vaccine_dengue"`
 }

@@ -76,8 +76,29 @@ func GetAllMedicalHistory(context *gin.Context) {
 }
 
 func GetMedicalHistoryByID(context *gin.Context) {
+	tokenString := context.GetHeader("Authorization")
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
 	var medicalHistory models.MedicalHistory
-	if err := database.Instance.Where("id = ?", context.Param("id")).First(&medicalHistory).Error; err != nil {
+	if err := database.Instance.Where("id = ?", user.ID).First(&medicalHistory).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}

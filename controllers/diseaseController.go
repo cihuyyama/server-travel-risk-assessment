@@ -86,3 +86,161 @@ func DeleteDiseaseByID(context *gin.Context) {
 	}
 	context.JSON(http.StatusOK, gin.H{"message": "Penyakit berhasil dihapus", "status": "success"})
 }
+
+func CreateTreatment(context *gin.Context) {
+	var treatmentFormCreate app.TreatmentForm
+	if err := context.ShouldBindJSON(&treatmentFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(treatmentFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	treatment := models.Treatment{
+		DiseaseID:   treatmentFormCreate.DiseaseID,
+		Title:       treatmentFormCreate.Title,
+		Description: treatmentFormCreate.Description,
+	}
+
+	if err := database.Instance.Create(&treatment).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusCreated, gin.H{"message": "Treatment berhasil ditambahkan", "status": "success"})
+}
+
+func GetAllTreatments(context *gin.Context) {
+	var treatments []models.Treatment
+	if err := database.Instance.Find(&treatments).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": treatments, "status": "success"})
+}
+
+func GetTreatmentByID(context *gin.Context) {
+	var treatment models.Treatment
+	if err := database.Instance.Where("id = ?", context.Param("id")).First(&treatment).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Treatment tidak ditemukan", "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": treatment, "status": "success"})
+}
+
+func UpdateTreatmentByID(context *gin.Context) {
+	var treatmentFormCreate app.TreatmentForm
+	if err := context.ShouldBindJSON(&treatmentFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(treatmentFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	treatment := models.Treatment{
+		DiseaseID:   treatmentFormCreate.DiseaseID,
+		Title:       treatmentFormCreate.Title,
+		Description: treatmentFormCreate.Description,
+	}
+
+	if err := database.Instance.Where("id = ?", context.Param("id")).Updates(&treatment).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Treatment tidak ditemukan", "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "Treatment berhasil diupdate", "status": "success"})
+}
+
+func DeleteTreatmentByID(context *gin.Context) {
+	var treatment models.Treatment
+	if err := database.Instance.Where("id = ?", context.Param("id")).Delete(&treatment).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Treatment tidak ditemukan", "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"message": "Treatment berhasil dihapus", "status": "success"})
+}
+
+func CreatePrevention(context *gin.Context) {
+	var preventionFormCreate app.PreventionForm
+	if err := context.ShouldBindJSON(&preventionFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(preventionFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	prevention := models.Prevention{
+		DiseaseID:   preventionFormCreate.DiseaseID,
+		Title:       preventionFormCreate.Title,
+		Description: preventionFormCreate.Description,
+	}
+
+	if err := database.Instance.Create(&prevention).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusCreated, gin.H{"message": "Prevention berhasil ditambahkan", "status": "success"})
+}
+
+func GetAllPreventions(context *gin.Context) {
+	var preventions []models.Prevention
+	if err := database.Instance.Find(&preventions).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": preventions, "status": "success"})
+}
+
+func GetPreventionByID(context *gin.Context) {
+	var prevention models.Prevention
+	if err := database.Instance.Where("id = ?", context.Param("id")).First(&prevention).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Prevention tidak ditemukan", "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": prevention, "status": "success"})
+}
+
+func UpdatePreventionByID(context *gin.Context) {
+	var preventionFormCreate app.PreventionForm
+	if err := context.ShouldBindJSON(&preventionFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(preventionFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	prevention := models.Prevention{
+		DiseaseID:   preventionFormCreate.DiseaseID,
+		Title:       preventionFormCreate.Title,
+		Description: preventionFormCreate.Description,
+	}
+
+	if err := database.Instance.Where("id = ?", context.Param("id")).Updates(&prevention).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Prevention tidak ditemukan", "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "Prevention berhasil diupdate", "status": "success"})
+}
+
+func DeletePreventionByID(context *gin.Context) {
+	var prevention models.Prevention
+	if err := database.Instance.Where("id = ?", context.Param("id")).Delete(&prevention).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Prevention tidak ditemukan", "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"message": "Prevention berhasil dihapus", "status": "success"})
+}

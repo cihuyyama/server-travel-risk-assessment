@@ -244,3 +244,82 @@ func DeletePreventionByID(context *gin.Context) {
 	}
 	context.JSON(http.StatusOK, gin.H{"message": "Prevention berhasil dihapus", "status": "success"})
 }
+
+func CreateDrugConflict(context *gin.Context) {
+	var drugConflictFormCreate app.DrugConflict
+	if err := context.ShouldBindJSON(&drugConflictFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(drugConflictFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	drugConflict := models.DrugConflict{
+		DiseaseID: drugConflictFormCreate.DiseaseID,
+		DrugName:  drugConflictFormCreate.DrugName,
+		DrugDesc:  drugConflictFormCreate.DrugDesc,
+	}
+
+	if err := database.Instance.Create(&drugConflict).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusCreated, gin.H{"message": "Drug Conflict berhasil ditambahkan", "status": "success"})
+}
+
+func GetAllDrugConflicts(context *gin.Context) {
+	var drugConflicts []models.DrugConflict
+	if err := database.Instance.Find(&drugConflicts).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": drugConflicts, "status": "success"})
+}
+
+func GetDrugConflictByID(context *gin.Context) {
+	var drugConflict models.DrugConflict
+	if err := database.Instance.Where("id = ?", context.Param("id")).First(&drugConflict).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Drug Conflict tidak ditemukan", "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": drugConflict, "status": "success"})
+}
+
+func UpdateDrugConflictByID(context *gin.Context) {
+	var drugConflictFormCreate app.DrugConflict
+	if err := context.ShouldBindJSON(&drugConflictFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(drugConflictFormCreate); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	drugConflict := models.DrugConflict{
+		DiseaseID: drugConflictFormCreate.DiseaseID,
+		DrugName:  drugConflictFormCreate.DrugName,
+		DrugDesc:  drugConflictFormCreate.DrugDesc,
+	}
+
+	if err := database.Instance.Where("id = ?", context.Param("id")).Updates(&drugConflict).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Drug Conflict tidak ditemukan", "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "Drug Conflict berhasil diupdate", "status": "success"})
+}
+
+func DeleteDrugConflictByID(context *gin.Context) {
+	var drugConflict models.DrugConflict
+	if err := database.Instance.Where("id = ?", context.Param("id")).Delete(&drugConflict).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Drug Conflict tidak ditemukan", "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"message": "Drug Conflict berhasil dihapus", "status": "success"})
+}

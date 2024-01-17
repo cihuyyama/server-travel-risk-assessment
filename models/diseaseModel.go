@@ -30,3 +30,12 @@ type Prevention struct {
 	CreatedAt   time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt   time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
+
+type DrugConflict struct {
+	ID        uint      `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
+	DiseaseID uint      `gorm:"column:disease_id" json:"disease_id"`
+	DrugName  string    `gorm:"column:drug_name" json:"drug_name"`
+	DrugDesc  string    `gorm:"column:drug_desc" json:"drug_desc"`
+	CreatedAt time.Time `gorm:"autoCreateTime" json:"created_at"`
+	UpdatedAt time.Time `gorm:"autoUpdateTime" json:"updated_at"`
+}

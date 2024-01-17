@@ -91,5 +91,21 @@ func SetupRouter() *gin.Engine {
 		protectedTreatment.DELETE("/treatments/:id", controllers.DeleteTreatmentByID)
 	}
 
+	protectedPrevention := r.Group("/api")
+	protectedPrevention.Use(middlewares.Authenticate())
+	{
+		protectedPrevention.POST("/preventions", controllers.CreatePrevention)
+		protectedPrevention.GET("/preventions", controllers.GetAllPreventions)
+		protectedPrevention.GET("/preventions/:id", controllers.GetPreventionByID)
+		protectedPrevention.PUT("/preventions/:id", controllers.UpdatePreventionByID)
+		protectedPrevention.DELETE("/preventions/:id", controllers.DeletePreventionByID)
+	}
+
+	protectedPreTravel := r.Group("/api")
+	protectedPreTravel.Use(middlewares.Authenticate())
+	{
+		protectedPreTravel.GET("/pretravel/:id", controllers.GetPreTravelProps)
+	}
+
 	return r
 }

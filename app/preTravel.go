@@ -3,9 +3,7 @@ package app
 import "travel-risk-assessment/models"
 
 type PreTravelProps struct {
-	DiseaseID        uint                `json:"disease_id" validate:"required"`
-	DiseaseName      string              `json:"disease_name" validate:"required"`
-	DiseaseDesc      string              `json:"disease_desc" validate:"required"`
+	Disease          []models.Disease    `json:"disease" validate:"required"`
 	Province         string              `json:"province" validate:"required"`
 	RiskLevel        string              `json:"risk_level" validate:"required"`
 	AllergyRiskLevel string              `json:"allergy_risk_level" validate:"required"`

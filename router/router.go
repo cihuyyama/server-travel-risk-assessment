@@ -69,6 +69,8 @@ func SetupRouter() *gin.Engine {
 		protectedDisease.GET("/diseases/:id", controllers.GetDiseaseByID)
 		protectedDisease.PUT("/diseases/:id", controllers.UpdateDiseaseByID)
 		protectedDisease.DELETE("/diseases/:id", controllers.DeleteDiseaseByID)
+		protectedDisease.POST("/diseases/append", controllers.AppendDisease)
+
 	}
 
 	protectedEndemic := r.Group("/api")
@@ -87,7 +89,7 @@ func SetupRouter() *gin.Engine {
 		protectedTreatment.POST("/treatments", controllers.CreateTreatment)
 		protectedTreatment.GET("/treatments", controllers.GetAllTreatments)
 		protectedTreatment.GET("/treatments/:id", controllers.GetTreatmentByID)
-		protectedTreatment.PUT("/treatments/:id", controllers.CreateTreatment)
+		protectedTreatment.PUT("/treatments/:id", controllers.UpdateTreatmentByID)
 		protectedTreatment.DELETE("/treatments/:id", controllers.DeleteTreatmentByID)
 	}
 

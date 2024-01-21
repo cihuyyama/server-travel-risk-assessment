@@ -5,3 +5,8 @@ type EndemicForm struct {
 	Province  string `json:"province" validate:"required"`
 	RiskLevel string `json:"risk_level" validate:"required"`
 }
+
+type AppendDiseaseForm struct {
+	EndemicID uint `json:"endemic_id" validate:"required"`
+	DiseaseID uint `json:"disease_id" validate:"required"`
+}

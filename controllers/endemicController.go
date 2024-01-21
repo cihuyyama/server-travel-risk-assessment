@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"travel-risk-assessment/app"
 	"travel-risk-assessment/database"
@@ -23,7 +24,6 @@ func CreateEndemic(context *gin.Context) {
 	}
 
 	endemic := models.Endemicity{
-		DiseaseID: endemicForm.DiseaseID,
 		Province:  endemicForm.Province,
 		RiskLevel: endemicForm.RiskLevel,
 	}
@@ -47,7 +47,7 @@ func GetAllEndemics(context *gin.Context) {
 
 func GetEndemicByID(context *gin.Context) {
 	var endemic models.Endemicity
-	if err := database.Instance.Where("id = ?", context.Param("id")).First(&endemic).Error; err != nil {
+	if err := database.Instance.Preload("DiseaseEndemic").Where("id = ?", context.Param("id")).First(&endemic).Error; err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Endemic tidak ditemukan", "status": "error"})
 		return
 	}
@@ -72,7 +72,6 @@ func UpdateEndemic(context *gin.Context) {
 		return
 	}
 
-	endemic.DiseaseID = endemicForm.DiseaseID
 	endemic.Province = endemicForm.Province
 	endemic.RiskLevel = endemicForm.RiskLevel
 
@@ -95,4 +94,37 @@ func DeleteEndemic(context *gin.Context) {
 		return
 	}
 	context.JSON(http.StatusOK, gin.H{"message": "Endemic berhasil dihapus", "status": "success"})
+}
+
+func AppendDisease(context *gin.Context) {
+	var appender app.AppendDiseaseForm
+	if err := context.ShouldBindJSON(&appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	var endemic models.Endemicity
+	if err := database.Instance.Where("id = ?", appender.EndemicID).First(&endemic).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Endemic tidak ditemukan", "status": "error"})
+		return
+	}
+
+	var disease models.Disease
+	if err := database.Instance.Where("id = ?", appender.DiseaseID).First(&disease).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Penyakit tidak ditemukan", "status": "error"})
+		return
+	}
+
+	if err := database.Instance.Model(&endemic).Association("DiseaseEndemic").Append(&disease); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	message := fmt.Sprintf("Penyakit %s berhasil ditambahkan ke endemis %s", disease.DiseaseName, endemic.Province)
+	context.JSON(http.StatusOK, gin.H{"message": message, "status": "success"})
 }

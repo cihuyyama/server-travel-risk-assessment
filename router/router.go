@@ -29,6 +29,7 @@ func SetupRouter() *gin.Engine {
 		protected.POST("/photos", controllers.CreatePhoto)
 		protected.PUT("/photos/:id", controllers.UpdatePhoto)
 		protected.DELETE("/photos/:id", controllers.DeletePhoto)
+		protected.POST("/users/append/symptom", controllers.AppendSymptomToUser)
 	}
 
 	protectedSymptom := r.Group("/api")
@@ -107,6 +108,12 @@ func SetupRouter() *gin.Engine {
 	protectedPreTravel.Use(middlewares.Authenticate())
 	{
 		protectedPreTravel.GET("/pretravel/:id", controllers.GetPreTravelProps)
+	}
+
+	protectedPostTravel := r.Group("/api")
+	protectedPostTravel.Use(middlewares.Authenticate())
+	{
+		protectedPostTravel.POST("/posttravel", controllers.PostTravelList)
 	}
 
 	return r

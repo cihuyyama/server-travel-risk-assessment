@@ -18,9 +18,13 @@ type UserFormUpdate struct {
 }
 
 type UserResult struct {
-	ID       uint    `json:"id"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
+	ID        uint   `json:"id"`
+	Username  string `json:"username"`
+	Email     string `json:"email"`
 	CreatedAt string `json:"created_at"`
 	UpdatedAt string `json:"updated_at"`
+}
+
+type AppendUserSymptom struct {
+	SymptomID uint `json:"symptom_id"`
 }

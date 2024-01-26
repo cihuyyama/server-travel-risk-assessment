@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"strings"
 	"travel-risk-assessment/app"
@@ -244,4 +245,52 @@ func DeleteUser(context *gin.Context) {
 	}
 
 	context.JSON(http.StatusOK, gin.H{"message": "Berhasil menghapus pengguna", "status": "success"})
+}
+
+func AppendSymptomToUser(context *gin.Context) {
+	var appender app.AppendUserSymptom
+	if err := context.ShouldBindJSON(&appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	var symptom models.Symptom
+	if err := database.Instance.Where("id = ?", appender.SymptomID).First(&symptom).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Gejala tidak ditemukan", "status": "error"})
+		return
+	}
+
+	tokenString := context.GetHeader("Authorization")
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
+	if err := database.Instance.Model(&user).Association("UserSymptoms").Append(&symptom); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	message := fmt.Sprintf("Berhasil menambahkan gejala %s pada user %s", symptom.SymptomName, user.Username)
+	context.JSON(http.StatusOK, gin.H{"message": message, "status": "success"})
 }

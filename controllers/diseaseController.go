@@ -46,7 +46,11 @@ func GetAllDiseases(context *gin.Context) {
 
 func GetDiseaseByID(context *gin.Context) {
 	var disease models.Disease
-	if err := database.Instance.Where("id = ?", context.Param("id")).First(&disease).Error; err != nil {
+	if err := database.Instance.
+		Preload("Treatment").
+		Preload("Prevention").
+		Where("id = ?", context.Param("id")).
+		First(&disease).Error; err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Penyakit tidak ditemukan", "status": "error"})
 		return
 	}

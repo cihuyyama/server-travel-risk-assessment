@@ -1268,7 +1268,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "2"
+									"value": "1"
 								}
 							]
 						}
@@ -1349,6 +1349,47 @@
 								"api",
 								"diseases",
 								"append"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "append symptom to disease",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"disease_id\": 1,\r\n    \"symptom_id\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/diseases/append/symptom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"diseases",
+								"append",
+								"symptom"
 							]
 						}
 					},
@@ -1510,7 +1551,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"disease_id\": 2,\r\n    \"province\": \"Jawa Barat\",\r\n    \"risk_level\": \"rendah\"\r\n}",
+							"raw": "{\r\n    \"province\": \"Jawa Barat\",\r\n    \"risk_level\": \"rendah\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1616,7 +1657,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"disease_id\": 1,\r\n    \"province\": \"Jawa Tengah\",\r\n    \"risk_level\": \"tinggi\"\r\n}",
+							"raw": "{\r\n    \"province\": \"Jawa Tengah\",\r\n    \"risk_level\": \"tinggi\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 	"travel-risk-assessment/app"
 	"travel-risk-assessment/database"
@@ -49,6 +50,7 @@ func GetDiseaseByID(context *gin.Context) {
 	if err := database.Instance.
 		Preload("Treatment").
 		Preload("Prevention").
+		Preload("DiseaseSymptom").
 		Where("id = ?", context.Param("id")).
 		First(&disease).Error; err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Penyakit tidak ditemukan", "status": "error"})
@@ -326,4 +328,37 @@ func DeleteDrugConflictByID(context *gin.Context) {
 		return
 	}
 	context.JSON(http.StatusOK, gin.H{"message": "Drug Conflict berhasil dihapus", "status": "success"})
+}
+
+func AppendSymptomToDisease(context *gin.Context) {
+	var appender app.DiseaseSymptomForm
+	if err := context.ShouldBindJSON(&appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	var symptom models.Symptom
+	if err := database.Instance.Where("id = ?", appender.SymptomID).First(&symptom).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Gejala tidak ditemukan", "status": "error"})
+		return
+	}
+
+	var disease models.Disease
+	if err := database.Instance.Where("id = ?", appender.DiseaseID).First(&disease).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Penyakit tidak ditemukan", "status": "error"})
+		return
+	}
+
+	if err := database.Instance.Model(&disease).Association("DiseaseSymptom").Append(&symptom); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	message := fmt.Sprintf("Berhasil menambahkan gejala %s dalam Penyakit %s", symptom.SymptomName, disease.DiseaseName)
+	context.JSON(http.StatusOK, gin.H{"message": message, "status": "success"})
 }

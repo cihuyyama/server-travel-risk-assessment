@@ -16,3 +16,8 @@ type PreventionForm struct {
 	Title       string `json:"title" validate:"required"`
 	Description string `json:"description" validate:"required"`
 }
+
+type DiseaseSymptomForm struct {
+	DiseaseID uint `json:"disease_id" validate:"required"`
+	SymptomID uint `json:"symptom_id" validate:"required"`
+}

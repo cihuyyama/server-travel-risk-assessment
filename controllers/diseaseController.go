@@ -38,11 +38,7 @@ func CreateDisease(context *gin.Context) {
 
 func GetAllDiseases(context *gin.Context) {
 	var diseases []models.Disease
-	if err := database.Instance.
-		Preload("Treatment").
-		Preload("Prevention").
-		Preload("DiseaseSymptom").
-		Find(&diseases).Error; err != nil {
+	if err := database.Instance.Find(&diseases).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}

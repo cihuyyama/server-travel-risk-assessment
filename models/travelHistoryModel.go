@@ -9,6 +9,7 @@ type TravelHistory struct {
 	Province      string    `gorm:"column:province" json:"province"`
 	Duration      string    `gorm:"column:duration" json:"duration"`
 	TravelPurpose string    `gorm:"column:travel_purpose" json:"travel_purpose"`
+	DeparturedAt  string    `gorm:"column:departured_at" json:"departured_at"`
 	CreatedAt     time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt     time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }

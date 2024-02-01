@@ -6,6 +6,7 @@ type TravelHistoryForm struct {
 	Province      string `json:"province"`
 	Duration      string `json:"duration"`
 	TravelPurpose string `json:"travel_purpose"`
+	DeparturedAt  string `json:"departured_at"`
 	CreatedAt     string `json:"created_at"`
 	UpdatedAt     string `json:"updated_at"`
 }

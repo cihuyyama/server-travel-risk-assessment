@@ -27,14 +27,12 @@ func CreateTravelHistory(context *gin.Context) {
 	}
 
 	tokenString := context.GetHeader("Authorization")
-	// Split the "Authorization" header to remove the "Bearer " prefix
 	parts := strings.Split(tokenString, " ")
 	if len(parts) != 2 || parts[0] != "Bearer" {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
 		return
 	}
 
-	// Get the token from the split
 	tokenString = parts[1]
 
 	claims, err := helpers.ParseToken(tokenString)
@@ -55,6 +53,7 @@ func CreateTravelHistory(context *gin.Context) {
 		Province:      travelFormCreate.Province,
 		Duration:      travelFormCreate.Duration,
 		TravelPurpose: travelFormCreate.TravelPurpose,
+		DeparturedAt:  travelFormCreate.DeparturedAt,
 	}
 
 	if err := database.Instance.Create(&travel).Error; err != nil {
@@ -200,6 +199,7 @@ func UpdateTravelhistory(context *gin.Context) {
 	travel.Province = travelForm.Province
 	travel.Duration = travelForm.Duration
 	travel.TravelPurpose = travelForm.TravelPurpose
+	travel.DeparturedAt = travelForm.DeparturedAt
 	travel.UpdatedAt = time.Now()
 	if err := database.Instance.Save(&travel).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

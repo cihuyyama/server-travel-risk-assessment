@@ -38,7 +38,9 @@ func CreateEndemic(context *gin.Context) {
 
 func GetAllEndemics(context *gin.Context) {
 	var endemics []models.Endemicity
-	if err := database.Instance.Find(&endemics).Error; err != nil {
+	if err := database.Instance.
+		Preload("DiseaseEndemic").
+		Find(&endemics).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}

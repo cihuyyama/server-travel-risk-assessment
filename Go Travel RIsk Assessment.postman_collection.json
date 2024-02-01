@@ -24,10 +24,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/register",
+							"raw": "http://{{url}}:5000/api/users/register",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -67,10 +67,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/login",
+							"raw": "http://{{url}}:5000/api/users/login",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -103,10 +103,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/symptoms/?filter=u&sort_by=asc",
+							"raw": "http://{{url}}:5000/api/symptoms/?filter=u&sort_by=asc",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -145,10 +145,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/symptoms/1",
+							"raw": "http://{{url}}:5000/api/symptoms/1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -185,10 +185,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/symptoms/",
+							"raw": "http://{{url}}:5000/api/symptoms/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -225,10 +225,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/symptoms/4",
+							"raw": "http://{{url}}:5000/api/symptoms/4",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -260,10 +260,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/symptoms/4",
+							"raw": "http://{{url}}:5000/api/symptoms/4",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -310,10 +310,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/",
+							"raw": "http://{{url}}:5000/api/users/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -350,10 +350,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/",
+							"raw": "http://{{url}}:5000/api/users/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -381,10 +381,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/users/",
+							"raw": "http://{{url}}:5000/api/users/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -421,10 +421,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/users/append/symptom",
+							"raw": "http://{{url}}:5000/api/users/append/symptom",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -458,10 +458,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/travels?sort_by=asc",
+							"raw": "http://{{url}}:5000/api/travels?sort_by=asc",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -500,10 +500,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/travels/:id",
+							"raw": "http://{{url}}:5000/api/travels/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -538,7 +538,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"city\": \"bandung\",\r\n    \"province\": \"jawa\",\r\n    \"duration\": \"7 hari\",\r\n    \"travel_purpose\": \"jualan\"\r\n}",
+							"raw": "{\r\n    \"city\": \"bandung\",\r\n    \"province\": \"jawa\",\r\n    \"duration\": \"7 hari\",\r\n    \"travel_purpose\": \"jualan\",\r\n    \"departured_at\": \"21-01-2024\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -546,10 +546,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/travels",
+							"raw": "http://{{url}}:5000/api/travels",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -585,10 +585,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/travels/:id",
+							"raw": "http://{{url}}:5000/api/travels/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -622,10 +622,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/travels/:id",
+							"raw": "http://{{url}}:5000/api/travels/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -651,13 +651,16 @@
 				{
 					"name": "migrate",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/migrate",
+							"raw": "http://{{url}}:5000/api/migrate",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -698,10 +701,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/medicals",
+							"raw": "http://{{url}}:5000/api/medicals",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -728,10 +731,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/medicals",
+							"raw": "http://{{url}}:5000/api/medicals",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -758,10 +761,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/medical",
+							"raw": "http://{{url}}:5000/api/medical",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -797,10 +800,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/medicals/:id",
+							"raw": "http://{{url}}:5000/api/medicals/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -834,10 +837,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/medicals/:id",
+							"raw": "http://{{url}}:5000/api/medicals/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -888,10 +891,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5000/api/preventions",
+									"raw": "http://{{url}}:5000/api/preventions",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -918,10 +921,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/preventions",
+									"raw": "http://{{url}}:5000/api/preventions",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -948,10 +951,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/preventions/:id",
+									"raw": "http://{{url}}:5000/api/preventions/:id",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -994,10 +997,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5000/api/preventions/:id",
+									"raw": "http://{{url}}:5000/api/preventions/:id",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -1031,10 +1034,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/preventions/:id",
+									"raw": "http://{{url}}:5000/api/preventions/:id",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -1082,10 +1085,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5000/api/treatments",
+									"raw": "http://{{url}}:5000/api/treatments",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -1112,10 +1115,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/treatments",
+									"raw": "http://{{url}}:5000/api/treatments",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -1142,10 +1145,10 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/treatments/:id",
+									"raw": "http://{{url}}:5000/api/treatments/:id",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -1188,10 +1191,10 @@
 									}
 								},
 								"url": {
-									"raw": "http://localhost:5000/api/treatments/:id",
+									"raw": "http://{{url}}:5000/api/treatments/:id",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -1225,10 +1228,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "http://localhost:5000/api/treatments/:id",
+									"raw": "http://{{url}}:5000/api/treatments/:id",
 									"protocol": "http",
 									"host": [
-										"localhost"
+										"{{url}}"
 									],
 									"port": "5000",
 									"path": [
@@ -1264,10 +1267,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/diseases",
+							"raw": "http://{{url}}:5000/api/diseases",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1294,10 +1297,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/diseases/:id",
+							"raw": "http://{{url}}:5000/api/diseases/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1340,10 +1343,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/diseases",
+							"raw": "http://{{url}}:5000/api/diseases",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1379,10 +1382,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/diseases/append",
+							"raw": "http://{{url}}:5000/api/diseases/append",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1419,10 +1422,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/diseases/append/symptom",
+							"raw": "http://{{url}}:5000/api/diseases/append/symptom",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1460,10 +1463,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/diseases/:id",
+							"raw": "http://{{url}}:5000/api/diseases/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1506,10 +1509,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/diseases/:id",
+							"raw": "http://{{url}}:5000/api/diseases/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1548,10 +1551,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/pretravel/:id",
+							"raw": "http://{{url}}:5000/api/pretravel/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1599,10 +1602,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/endemics",
+							"raw": "http://{{url}}:5000/api/endemics",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1629,10 +1632,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/endemics",
+							"raw": "http://{{url}}:5000/api/endemics",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1659,10 +1662,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/endemics/:id",
+							"raw": "http://{{url}}:5000/api/endemics/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1705,10 +1708,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/endemics/:id",
+							"raw": "http://{{url}}:5000/api/endemics/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1742,10 +1745,10 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:5000/api/endemics/:id",
+							"raw": "http://{{url}}:5000/api/endemics/:id",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [
@@ -1793,10 +1796,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/posttravel",
+							"raw": "http://{{url}}:5000/api/posttravel",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{url}}"
 							],
 							"port": "5000",
 							"path": [

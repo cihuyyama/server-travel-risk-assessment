@@ -98,7 +98,7 @@ func GetMedicalHistoryByID(context *gin.Context) {
 	}
 
 	var medicalHistory models.MedicalHistory
-	if err := database.Instance.Where("id = ?", user.ID).First(&medicalHistory).Error; err != nil {
+	if err := database.Instance.Where("user_id = ?", user.ID).First(&medicalHistory).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}

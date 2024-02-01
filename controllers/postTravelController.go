@@ -47,6 +47,7 @@ func PostTravelList(context *gin.Context) {
 		result = append(result, app.PostTravelResponse{
 			DiseaseId:   diseases[i-1].ID,
 			DiseaseName: diseases[i-1].DiseaseName,
+			DiseaseDesc: diseases[i-1].DiseaseDesc,
 			Percentage:  count,
 		})
 	}

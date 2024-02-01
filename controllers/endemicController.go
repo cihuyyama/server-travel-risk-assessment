@@ -40,6 +40,9 @@ func GetAllEndemics(context *gin.Context) {
 	var endemics []models.Endemicity
 	if err := database.Instance.
 		Preload("DiseaseEndemic").
+		Preload("DiseaseEndemic.Treatment").
+		Preload("DiseaseEndemic.Prevention").
+		Preload("DiseaseEndemic.DiseaseSymptom").
 		Find(&endemics).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
@@ -49,7 +52,12 @@ func GetAllEndemics(context *gin.Context) {
 
 func GetEndemicByID(context *gin.Context) {
 	var endemic models.Endemicity
-	if err := database.Instance.Preload("DiseaseEndemic").Where("id = ?", context.Param("id")).First(&endemic).Error; err != nil {
+	if err := database.Instance.
+		Preload("DiseaseEndemic").
+		Preload("DiseaseEndemic.Treatment").
+		Preload("DiseaseEndemic.Prevention").
+		Preload("DiseaseEndemic.DiseaseSymptom").
+		Where("id = ?", context.Param("id")).First(&endemic).Error; err != nil {
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Endemic tidak ditemukan", "status": "error"})
 		return
 	}

@@ -6,10 +6,13 @@ import (
 	"travel-risk-assessment/middlewares"
 
 	"github.com/gin-gonic/gin"
+	cors "github.com/rs/cors/wrapper/gin"
 )
 
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
+
+	r.Use(cors.AllowAll())
 
 	public := r.Group("/api")
 	{

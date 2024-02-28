@@ -8,17 +8,27 @@ on:
 
 jobs:
 
-  build:
+  build-and-deploy:
 
     runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
+    - name: Pulling new Git Repository
+      run: sudo git pull
+      env:
+        PORT: 3000
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+        DB_NAME: ${{ secrets.DB_NAME }}
+        DB_DRIVER: ${{ secrets.DB_DRIVER }}
+        DB_HOST: ${{ secrets.DB_HOST }}
     - name: Stop and Remove running Container
-      run: docker-compose down
+      run: sudo docker-compose down
     - name: Remove Golang Old Image
-      run: docker rmi server-travel-risk-assessment_app
+      run: sudo docker rmi server-travel-risk-assessment_app
     - name: Docker Compose Build
-      run: docker-compose build --no-cache
+      run: sudo docker-compose build --no-cache
     - name: Docker Compose Run
-      run: docker-compose up -d
+      run: sudo docker-compose up -d

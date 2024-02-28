@@ -17,6 +17,7 @@ func SetupRouter() *gin.Engine {
 	r.GET("/api", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "Welcome to Travel Risk Assessment API",
+			"version": "1.0.0",
 		})
 	})
 

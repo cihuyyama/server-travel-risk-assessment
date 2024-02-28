@@ -14,6 +14,12 @@ func SetupRouter() *gin.Engine {
 
 	r.Use(cors.AllowAll())
 
+	r.GET("/api", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"message": "Welcome to Travel Risk Assessment API",
+		})
+	})
+
 	public := r.Group("/api")
 	{
 		public.POST("/users/login", controllers.Login)

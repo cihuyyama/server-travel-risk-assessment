@@ -10,14 +10,14 @@ jobs:
 
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v3
-    - name: Go to directory
-      run: cd /home/ubuntu/server-travel-risk-assessment
     - name: Stop and Remove running Container
       run: docker-compose down
+    - name: Remove Golang Old Image
+      run: docker rmi server-travel-risk-assessment_app
     - name: Docker Compose Build
       run: docker-compose build --no-cache
     - name: Docker Compose Run

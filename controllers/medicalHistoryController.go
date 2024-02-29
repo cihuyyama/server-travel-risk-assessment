@@ -297,7 +297,7 @@ func GetMedicalScoreRiskByID(context *gin.Context) {
 	}
 
 	var medicalScoreRisk models.MedicalScoreRisk
-	if err := database.Instance.Where("user_id = ?", user.ID).First(&medicalScoreRisk).Error; err != nil {
+	if err := database.Instance.Where("user_id = ?", user.ID).Last(&medicalScoreRisk).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
 		return
 	}

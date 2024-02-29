@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"cihuyyama\",\r\n    \"email\": \"test@mail.com\",\r\n    \"password\": \"123123\"\r\n}",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"email\": \"admin@mail.com\",\r\n    \"password\": \"admin123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -59,7 +59,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@mail.com\",\r\n    \"password\": \"123123\"\r\n}",
+							"raw": "{\r\n    \"email\": \"admin@mail.com\",\r\n    \"password\": \"admin123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -67,12 +67,10 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}:5000/api/users/login",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/login",
 							"host": [
 								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -310,12 +308,10 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{url}}:5000/api/users/",
-							"protocol": "http",
+							"raw": "{{url}}/api/users/",
 							"host": [
 								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"users",
@@ -674,189 +670,264 @@
 			]
 		},
 		{
-			"name": "Medical History",
+			"name": "Medical",
 			"item": [
 				{
-					"name": "Create medical history",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
+					"name": "Medical History",
+					"item": [
+						{
+							"name": "Create medical history",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"age\": \"20\",\r\n    \"preexisting_condition\": \"test\",\r\n    \"current_medication\": \"test\",\r\n    \"allergies\": \"test\",\r\n    \"previous_vaccination\": \"test\",\r\n    \"pregnant\": \"test\",\r\n    \"vaccine_bcg\": true,\r\n    \"vaccine_hepatitis\": true,\r\n    \"vaccine_dengue\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}:5000/api/medicals",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"medicals"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"age\": \"20\",\r\n    \"preexisting_condition\": \"test\",\r\n    \"current_medication\": \"test\",\r\n    \"allergies\": \"test\",\r\n    \"previous_vaccination\": \"test\",\r\n    \"pregnant\": \"test\",\r\n    \"vaccine_bcg\": true,\r\n    \"vaccine_hepatitis\": true,\r\n    \"vaccine_dengue\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						{
+							"name": "Get all medical history",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}:5000/api/medicals",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"medicals"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "http://{{url}}:5000/api/medicals",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"medicals"
-							]
+						{
+							"name": "Get medical history by token",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}:5000/api/medical",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"medical"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update medical history by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"age\": \"20\",\r\n    \"preexisting_condition\": \"test updated\",\r\n    \"current_medication\": \"test\",\r\n    \"allergies\": \"test\",\r\n    \"previous_vaccination\": \"test\",\r\n    \"pregnant\": \"test\",\r\n    \"vaccine_bcg\": true,\r\n    \"vaccine_hepatitis\": true,\r\n    \"vaccine_dengue\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://{{url}}:5000/api/medicals/:id",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"medicals",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete medical history by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{url}}:5000/api/medicals/:id",
+									"protocol": "http",
+									"host": [
+										"{{url}}"
+									],
+									"port": "5000",
+									"path": [
+										"api",
+										"medicals",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "3"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Get all medical history",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
+					"name": "Medical Score",
+					"item": [
+						{
+							"name": "Create medical score",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"preexisting_condition\": 10,\r\n    \"current_medication\": 10,\r\n    \"allergies\": 10,\r\n    \"previous_vaccination\": 10,\r\n    \"pregnant\": 0,\r\n    \"age\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/api/medicalScore",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"medicalScore"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}:5000/api/medicals",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"medicals"
-							]
+						{
+							"name": "New Request",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/api/medicalScore",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"api",
+										"medicalScore"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get medical history by token",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}:5000/api/medical",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"medical"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update medical history by id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"age\": \"20\",\r\n    \"preexisting_condition\": \"test updated\",\r\n    \"current_medication\": \"test\",\r\n    \"allergies\": \"test\",\r\n    \"previous_vaccination\": \"test\",\r\n    \"pregnant\": \"test\",\r\n    \"vaccine_bcg\": true,\r\n    \"vaccine_hepatitis\": true,\r\n    \"vaccine_dengue\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://{{url}}:5000/api/medicals/:id",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"medicals",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "3"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete medical history by id",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{token}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://{{url}}:5000/api/medicals/:id",
-							"protocol": "http",
-							"host": [
-								"{{url}}"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"medicals",
-								":id"
-							],
-							"variable": [
-								{
-									"key": "id",
-									"value": "3"
-								}
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -1267,12 +1338,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{url}}:5000/api/diseases",
-							"protocol": "http",
+							"raw": "{{url}}/api/diseases",
 							"host": [
 								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"diseases"
@@ -1297,12 +1366,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{url}}:5000/api/diseases/:id",
-							"protocol": "http",
+							"raw": "{{url}}/api/diseases/:id",
 							"host": [
 								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"diseases",
@@ -1311,7 +1378,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "1"
+									"value": ""
 								}
 							]
 						}
@@ -1358,7 +1425,7 @@
 					"response": []
 				},
 				{
-					"name": "append diease to endemic",
+					"name": "Append diease to endemic",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -1382,12 +1449,48 @@
 							}
 						},
 						"url": {
-							"raw": "http://{{url}}:5000/api/diseases/append",
-							"protocol": "http",
+							"raw": "{{url}}/api/diseases/append",
 							"host": [
 								"{{url}}"
 							],
-							"port": "5000",
+							"path": [
+								"api",
+								"diseases",
+								"append"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unappend diease to endemic",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"endemic_id\": 1,\r\n    \"disease_id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/diseases/append",
+							"host": [
+								"{{url}}"
+							],
 							"path": [
 								"api",
 								"diseases",
@@ -1632,12 +1735,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{url}}:5000/api/endemics",
-							"protocol": "http",
+							"raw": "{{url}}/api/endemics",
 							"host": [
 								"{{url}}"
 							],
-							"port": "5000",
 							"path": [
 								"api",
 								"endemics"
@@ -1805,6 +1906,39 @@
 							"path": [
 								"api",
 								"posttravel"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Logs",
+			"item": [
+				{
+					"name": "get all logs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/logs",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"logs"
 							]
 						}
 					},

@@ -198,3 +198,96 @@ func DeleteMedicalHistory(context *gin.Context) {
 	}
 	context.JSON(http.StatusOK, gin.H{"message": "Riwayat medis berhasil dihapus", "status": "success"})
 }
+
+func CreateMedicalScoreRisk(context *gin.Context) {
+	var medicalScoreRisk app.MedicalScoreRiskForm
+	if err := context.ShouldBindJSON(&medicalScoreRisk); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(medicalScoreRisk); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	tokenString := context.GetHeader("Authorization")
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
+	totalScore := medicalScoreRisk.Age + medicalScoreRisk.PreexistingCondition + medicalScoreRisk.CurrentMedication + medicalScoreRisk.Allergies + medicalScoreRisk.PreviousVaccination + medicalScoreRisk.Pregnant
+
+	medicalScoreRiskModel := models.MedicalScoreRisk{
+		UserID:               user.ID,
+		Age:                  medicalScoreRisk.Age,
+		PreexistingCondition: medicalScoreRisk.PreexistingCondition,
+		CurrentMedication:    medicalScoreRisk.CurrentMedication,
+		Allergies:            medicalScoreRisk.Allergies,
+		PreviousVaccination:  medicalScoreRisk.PreviousVaccination,
+		Pregnant:             medicalScoreRisk.Pregnant,
+		TotalScore:           totalScore,
+	}
+
+	if err := database.Instance.Create(&medicalScoreRiskModel).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusCreated, gin.H{"message": "Score medis berhasil ditambahkan", "status": "success"})
+}
+
+func GetAllMedicalScoreRisk(context *gin.Context) {
+	var medicalScoreRisk []models.MedicalScoreRisk
+	if err := database.Instance.Find(&medicalScoreRisk).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": medicalScoreRisk, "status": "success"})
+}
+
+func GetMedicalScoreRiskByID(context *gin.Context) {
+	tokenString := context.GetHeader("Authorization")
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
+	var medicalScoreRisk models.MedicalScoreRisk
+	if err := database.Instance.Where("user_id = ?", user.ID).First(&medicalScoreRisk).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": medicalScoreRisk, "status": "success"})
+}

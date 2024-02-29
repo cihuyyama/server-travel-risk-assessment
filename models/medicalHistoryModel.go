@@ -17,3 +17,15 @@ type MedicalHistory struct {
 	CreatedAt            time.Time `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt            time.Time `gorm:"autoUpdateTime" json:"updated_at"`
 }
+
+type MedicalScoreRisk struct {
+	ID                   uint `gorm:"column:id;primaryKey;autoIncrement" json:"id"`
+	UserID               uint `gorm:"column:user_id" json:"user_id"`
+	PreexistingCondition int  `gorm:"column:preexisting_condition" json:"preexisting_condition"`
+	CurrentMedication    int  `gorm:"column:current_medication" json:"current_medication"`
+	Allergies            int  `gorm:"column:allergies" json:"allergies"`
+	PreviousVaccination  int  `gorm:"column:previous_vaccination" json:"previous_vaccination"`
+	Pregnant             int  `gorm:"column:pregnant" json:"pregnant"`
+	Age                  int  `gorm:"column:age" json:"age"`
+	TotalScore           int  `gorm:"column:total_score" json:"total_score"`
+}

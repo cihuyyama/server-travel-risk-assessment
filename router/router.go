@@ -81,7 +81,14 @@ func SetupRouter() *gin.Engine {
 		protectedDisease.PUT("/diseases/:id", controllers.UpdateDiseaseByID)
 		protectedDisease.DELETE("/diseases/:id", controllers.DeleteDiseaseByID)
 		protectedDisease.POST("/diseases/append", controllers.AppendDisease)
+		protectedDisease.DELETE("/diseases/append", controllers.UnappendDisease)
 		protectedDisease.POST("/diseases/append/symptom", controllers.AppendSymptomToDisease)
+	}
+
+	protectedLogs := r.Group("/api")
+	protectedLogs.Use(middlewares.Authenticate())
+	{
+		protectedLogs.GET("/logs", controllers.GetAllLogHistory)
 	}
 
 	protectedEndemic := r.Group("/api")

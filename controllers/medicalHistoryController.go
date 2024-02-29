@@ -234,6 +234,17 @@ func CreateMedicalScoreRisk(context *gin.Context) {
 
 	totalScore := medicalScoreRisk.Age + medicalScoreRisk.PreexistingCondition + medicalScoreRisk.CurrentMedication + medicalScoreRisk.Allergies + medicalScoreRisk.PreviousVaccination + medicalScoreRisk.Pregnant
 
+	category := ""
+	if totalScore > 60 {
+		category = "Tinggi"
+	} else if totalScore > 20 {
+		category = "Medium"
+	} else if totalScore > 10 {
+		category = "Rendah"
+	} else {
+		category = "Tidak ada Resiko"
+	}
+
 	medicalScoreRiskModel := models.MedicalScoreRisk{
 		UserID:               user.ID,
 		Age:                  medicalScoreRisk.Age,
@@ -243,6 +254,7 @@ func CreateMedicalScoreRisk(context *gin.Context) {
 		PreviousVaccination:  medicalScoreRisk.PreviousVaccination,
 		Pregnant:             medicalScoreRisk.Pregnant,
 		TotalScore:           totalScore,
+		Categories:           category,
 	}
 
 	if err := database.Instance.Create(&medicalScoreRiskModel).Error; err != nil {

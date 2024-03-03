@@ -60,6 +60,10 @@ func SetupRouter() *gin.Engine {
 		protectedTravel.GET("/travels/:id", controllers.GetTravelHistoryByID)
 		protectedTravel.PUT("/travels/:id", controllers.UpdateTravelhistory)
 		protectedTravel.DELETE("/travels/:id", controllers.DeleteTravelHistory)
+
+		protectedTravel.GET("/travelScores", controllers.GetAllTravelScoreRisk)
+		protectedTravel.GET("/travelScore", controllers.GetTravelScoreRiskByID)
+		protectedTravel.PUT("/travelScore", controllers.UpdateTravelScoreRisk)
 	}
 
 	protectedMedical := r.Group("/api")
@@ -71,9 +75,9 @@ func SetupRouter() *gin.Engine {
 		protectedMedical.PUT("/medicals/:id", controllers.UpdateMedicalHistory)
 		protectedMedical.DELETE("/medicals/:id", controllers.DeleteMedicalHistory)
 
-		protectedMedical.POST("/medicalScore", controllers.CreateMedicalScoreRisk)
 		protectedMedical.GET("/medicalScores", controllers.GetAllMedicalScoreRisk)
 		protectedMedical.GET("/medicalScore", controllers.GetMedicalScoreRiskByID)
+		protectedMedical.PUT("/medicalScore", controllers.UpdateMedicalScoreRisk)
 	}
 
 	protectedDisease := r.Group("/api")

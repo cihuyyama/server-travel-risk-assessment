@@ -21,7 +21,8 @@ func Migrate() {
 		&models.Treatment{},
 		&models.DrugConflict{},
 		&models.LogHistory{},
-		&models.MedicalScoreRisk{})
+		&models.MedicalScoreRisk{},
+		&models.TravelScoreRisk{})
 	log.Println("Database Migration Completed!")
 }
 
@@ -38,7 +39,8 @@ func ManualMigrate(context *gin.Context) {
 		&models.Treatment{},
 		&models.DrugConflict{},
 		&models.LogHistory{},
-		&models.MedicalScoreRisk{})
+		&models.MedicalScoreRisk{},
+		&models.TravelScoreRisk{})
 	log.Println("Database Migration Completed!")
 	context.JSON(http.StatusCreated, gin.H{"message": "Database Migration Completed!"})
 }

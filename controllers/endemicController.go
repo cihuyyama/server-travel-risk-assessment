@@ -26,6 +26,7 @@ func CreateEndemic(context *gin.Context) {
 	endemic := models.Endemicity{
 		Province:  endemicForm.Province,
 		RiskLevel: endemicForm.RiskLevel,
+		RiskScore: endemicForm.RiskScore,
 	}
 
 	if err := database.Instance.Create(&endemic).Error; err != nil {
@@ -84,6 +85,7 @@ func UpdateEndemic(context *gin.Context) {
 
 	endemic.Province = endemicForm.Province
 	endemic.RiskLevel = endemicForm.RiskLevel
+	endemic.RiskScore = endemicForm.RiskScore
 
 	if err := database.Instance.Save(&endemic).Error; err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})

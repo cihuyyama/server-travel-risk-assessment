@@ -10,3 +10,11 @@ type TravelHistoryForm struct {
 	CreatedAt     string `json:"created_at"`
 	UpdatedAt     string `json:"updated_at"`
 }
+
+type TravelScoreRiskForm struct {
+	Duration         int    `json:"duration"`
+	TravelPurpose    int    `json:"travel_purpose"`
+	DestinationScore int    `gorm:"column:destination_score;default:70" json:"destination_score"`
+	TotalScore       int    `json:"total_score"`
+	Categories       string `json:"categories"`
+}

@@ -232,6 +232,16 @@ func CreateMedicalScoreRisk(context *gin.Context) {
 		return
 	}
 
+	var medicalScoreRiskCheck models.MedicalScoreRisk
+	if err := database.Instance.Where("user_id = ?", user.ID).Last(&medicalScoreRiskCheck).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+	if medicalScoreRiskCheck.ID != 0 {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Score medis sudah ada", "status": "error"})
+		return
+	}
+
 	totalScore := medicalScoreRisk.Age + medicalScoreRisk.PreexistingCondition + medicalScoreRisk.CurrentMedication + medicalScoreRisk.Allergies + medicalScoreRisk.PreviousVaccination + medicalScoreRisk.Pregnant
 
 	category := ""
@@ -298,8 +308,95 @@ func GetMedicalScoreRiskByID(context *gin.Context) {
 
 	var medicalScoreRisk models.MedicalScoreRisk
 	if err := database.Instance.Where("user_id = ?", user.ID).Last(&medicalScoreRisk).Error; err != nil {
-		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.JSON(http.StatusInternalServerError, gin.H{"data": []string{}, "message": err.Error(), "status": "error"})
 		return
 	}
 	context.JSON(http.StatusOK, gin.H{"data": medicalScoreRisk, "status": "success"})
+}
+
+func UpdateMedicalScoreRisk(context *gin.Context) {
+	var medicalScoreRisk app.MedicalScoreRiskForm
+	if err := context.ShouldBindJSON(&medicalScoreRisk); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(medicalScoreRisk); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	tokenString := context.GetHeader("Authorization")
+	// Split the "Authorization" header to remove the "Bearer " prefix
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	// Get the token from the split
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
+	totalScore := medicalScoreRisk.Age + medicalScoreRisk.PreexistingCondition + medicalScoreRisk.CurrentMedication + medicalScoreRisk.Allergies + medicalScoreRisk.PreviousVaccination + medicalScoreRisk.Pregnant
+
+	category := ""
+	if totalScore > 60 {
+		category = "Tinggi"
+	} else if totalScore > 20 {
+		category = "Medium"
+	} else if totalScore > 10 {
+		category = "Rendah"
+	} else {
+		category = "Tidak ada Resiko"
+	}
+
+	var medicalScoreRiskModel models.MedicalScoreRisk
+	if err := database.Instance.Where("user_id = ?", user.ID).First(&medicalScoreRiskModel).Error; err != nil {
+		medicalScoreRiskModel := models.MedicalScoreRisk{
+			UserID:               user.ID,
+			Age:                  medicalScoreRisk.Age,
+			PreexistingCondition: medicalScoreRisk.PreexistingCondition,
+			CurrentMedication:    medicalScoreRisk.CurrentMedication,
+			Allergies:            medicalScoreRisk.Allergies,
+			PreviousVaccination:  medicalScoreRisk.PreviousVaccination,
+			Pregnant:             medicalScoreRisk.Pregnant,
+			TotalScore:           totalScore,
+			Categories:           category,
+		}
+
+		if err := database.Instance.Create(&medicalScoreRiskModel).Error; err != nil {
+			context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+			return
+		}
+
+		context.JSON(http.StatusCreated, gin.H{"message": "Score medis berhasil ditambahkan", "status": "success"})
+		return
+	}
+
+	medicalScoreRiskModel.Age = medicalScoreRisk.Age
+	medicalScoreRiskModel.PreexistingCondition = medicalScoreRisk.PreexistingCondition
+	medicalScoreRiskModel.CurrentMedication = medicalScoreRisk.CurrentMedication
+	medicalScoreRiskModel.Allergies = medicalScoreRisk.Allergies
+	medicalScoreRiskModel.PreviousVaccination = medicalScoreRisk.PreviousVaccination
+	medicalScoreRiskModel.Pregnant = medicalScoreRisk.Pregnant
+	medicalScoreRiskModel.TotalScore = totalScore
+	medicalScoreRiskModel.Categories = category
+
+	if err := database.Instance.Save(&medicalScoreRiskModel).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"message": "Score medis berhasil diupdate", "status": "success"})
 }

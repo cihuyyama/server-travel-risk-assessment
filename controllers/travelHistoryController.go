@@ -231,3 +231,123 @@ func DeleteTravelHistory(context *gin.Context) {
 
 	context.JSON(http.StatusOK, gin.H{"message": "history berhasil dihapus", "status": "success"})
 }
+
+func GetAllTravelScoreRisk(context *gin.Context) {
+	var travelScoreRisk []models.TravelScoreRisk
+	if err := database.Instance.Find(&travelScoreRisk).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"data": travelScoreRisk, "status": "success"})
+}
+
+func GetTravelScoreRiskByID(context *gin.Context) {
+	tokenString := context.GetHeader("Authorization")
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
+	var travelScoreRisk models.TravelScoreRisk
+	if err := database.Instance.Where("user_id = ?", user.ID).Last(&travelScoreRisk).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"data": []string{}, "message": err.Error(), "status": "error"})
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{"data": travelScoreRisk, "status": "success"})
+}
+
+func UpdateTravelScoreRisk(context *gin.Context) {
+	var travelScoreRiskForm app.TravelScoreRiskForm
+	if err := context.ShouldBindJSON(&travelScoreRiskForm); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(travelScoreRiskForm); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	tokenString := context.GetHeader("Authorization")
+	parts := strings.Split(tokenString, " ")
+	if len(parts) != 2 || parts[0] != "Bearer" {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "No bearer", "status": "error"})
+		return
+	}
+
+	tokenString = parts[1]
+
+	claims, err := helpers.ParseToken(tokenString)
+	if err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		context.Abort()
+		return
+	}
+	var user models.User
+	if err := database.Instance.Where("id = ?", claims.ID).First(&user).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Pengguna tidak ditemukan", "status": "error"})
+		return
+	}
+
+	totalScore := travelScoreRiskForm.Duration + travelScoreRiskForm.TravelPurpose + travelScoreRiskForm.DestinationScore
+
+	category := ""
+	if totalScore > 160 {
+		category = "Tinggi"
+	} else if totalScore > 130 {
+		category = "Medium"
+	} else if totalScore > 100 {
+		category = "Rendah"
+	} else {
+		category = "Tidak ada Resiko"
+	}
+
+	var travelScoreRiskModel models.TravelScoreRisk
+	if err := database.Instance.Where("user_id = ?", user.ID).First(&travelScoreRiskModel).Error; err != nil {
+		travelScoreRiskModel := models.TravelScoreRisk{
+			UserID:           user.ID,
+			Duration:         travelScoreRiskForm.Duration,
+			TravelPurpose:    travelScoreRiskForm.TravelPurpose,
+			DestinationScore: travelScoreRiskForm.DestinationScore,
+			TotalScore:       totalScore,
+			Categories:       category,
+		}
+
+		if err := database.Instance.Create(&travelScoreRiskModel).Error; err != nil {
+			context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+			return
+		}
+
+		context.JSON(http.StatusCreated, gin.H{"message": "Travel Score Risk berhasil ditambahkan", "status": "success"})
+		return
+	}
+
+	travelScoreRiskModel.Duration = travelScoreRiskForm.Duration
+	travelScoreRiskModel.TravelPurpose = travelScoreRiskForm.TravelPurpose
+	travelScoreRiskModel.DestinationScore = travelScoreRiskForm.DestinationScore
+	travelScoreRiskModel.TotalScore = totalScore
+	travelScoreRiskModel.Categories = category
+
+	if err := database.Instance.Save(&travelScoreRiskModel).Error; err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	context.JSON(http.StatusOK, gin.H{"message": "Travel Score Risk berhasil diupdate", "status": "success"})
+}

@@ -16,6 +16,7 @@ jobs:
     - name: Check read env secrets
       run: |
           echo ${{ secrets.SECRET_KEY }}
+
       env:
         PORT: 3000
         SECRET_KEY: ${{ secrets.SECRET_KEY }}

@@ -13,18 +13,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Check read env secrets
-      run: |
-          echo ${{ secrets.SECRET_KEY }}
-
-      env:
-        PORT: 3000
-        SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        DB_USER: root
-        DB_PORT: 3306
-        DB_NAME: btpns
-        DB_DRIVER: mysql
-        DB_HOST: db
     
     - name: Check Repo
       uses: actions/checkout@v3
@@ -33,13 +21,13 @@ jobs:
       run: sudo git pull
       
     - name: Stop and Remove running Container
-      run: sudo docker-compose down
+      run: sudo docker-compose -f docker-compose-prod.yaml down
       
     - name: Remove Golang Old Image
       run: sudo docker rmi server-travel-risk-assessment_app
       
     - name: Docker Compose Build
-      run: sudo docker-compose build --no-cache
+      run: sudo docker-compose -f docker-compose-prod.yaml build --no-cache
       
     - name: Docker Compose Run
-      run: sudo docker-compose up -d
+      run: sudo docker-compose -f docker-compose-prod.yaml up -d

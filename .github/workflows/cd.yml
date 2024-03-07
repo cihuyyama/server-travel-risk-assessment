@@ -16,6 +16,7 @@ jobs:
     - name: Check read env secrets
       run: |
           echo ${{ secrets.SECRET_KEY }}
+
       env:
         PORT: 3000
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
@@ -26,7 +27,7 @@ jobs:
         DB_HOST: db
     
     - name: Check Repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
     
     - name: Pulling new Git Repository
       run: sudo git pull

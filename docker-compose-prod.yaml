@@ -8,7 +8,7 @@ services:
     ports:
       - 5000:5000
     environment:
-      - PORT=$PORT
+      - PORT=
       - SECRET_KEY=
       - DB_HOST=
       - DB_PORT=
@@ -26,8 +26,6 @@ services:
       - 3306:3306
     environment:
       - MYSQL_DATABASE=
-      - MYSQL_USER=
-      - MYSQL_PASSWORD=
       - MYSQL_ROOT_PASSWORD=
     volumes:
       - db_data:/var/lib/mysql

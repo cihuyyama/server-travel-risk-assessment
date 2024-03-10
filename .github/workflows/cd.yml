@@ -21,7 +21,7 @@ jobs:
       run: sudo git pull
       
     - name: Stop and Remove running Container
-      run: sudo docker-compose down
+      run: sudo docker-compose -f docker-compose-prod.yaml down
       
     - name: Remove Golang Old Image
       run: sudo docker rmi server-travel-risk-assessment_app

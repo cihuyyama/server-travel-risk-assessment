@@ -1,3 +1,4 @@
 #Ignore binary files
 .env
+app.env
 notes-api-webserver.pem

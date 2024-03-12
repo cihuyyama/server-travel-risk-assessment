@@ -1,19 +1,19 @@
 package app
 
 type UserFormLogin struct {
-	Email    string `json:"email"  valid:"required,email"`
+	Email    string `json:"email"  valid:"required"`
 	Password string `json:"password" valid:"required"`
 }
 
 type UserFormRegister struct {
 	Username string `json:"username" valid:"required"`
-	Email    string `json:"email" valid:"required,email"`
+	Email    string `json:"email" valid:"required"`
 	Password string `json:"password" valid:"required"`
 }
 
 type UserFormUpdate struct {
 	Username string `json:"username" valid:"required"`
-	Email    string `json:"email" valid:"required,email"`
+	Email    string `json:"email" valid:"required"`
 	Password string `json:"password"`
 }
 

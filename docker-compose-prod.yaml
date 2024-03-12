@@ -10,7 +10,7 @@ services:
     environment:
       - PORT=
       - SECRET_KEY=
-      - DB_HOST=
+      - DB_HOST=db
       - DB_PORT=
       - DB_NAME=
       - DB_USER=

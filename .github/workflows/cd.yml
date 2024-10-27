@@ -13,13 +13,6 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    - name: Check Environment
-      run: |
-       echo "${{ secrets.DB_PASSWORD }}"
-      
-      env:
-        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-
     - name: Check Repo
       uses: actions/checkout@v3
     
@@ -27,13 +20,13 @@ jobs:
       run: sudo git pull
       
     - name: Stop and Remove running Container
-      run: sudo docker-compose -f docker-compose-prod.yaml down
+      run: sudo docker-compose down
       
     - name: Remove Golang Old Image
       run: sudo docker rmi server-travel-risk-assessment_app
       
     - name: Docker Compose Build
-      run: sudo docker-compose -f docker-compose-prod.yaml build --no-cache
+      run: sudo docker-compose build --no-cache
       
     - name: Docker Compose Run
-      run: sudo docker-compose -f docker-compose-prod.yaml up -d
+      run: sudo docker-compose up -d

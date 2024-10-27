@@ -18,6 +18,6 @@ WORKDIR /root/
 
 COPY --from=builder /app/main .
 
-COPY app.env .env
+COPY .env .env
 
 CMD ["./main"]

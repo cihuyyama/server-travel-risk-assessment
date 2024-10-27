@@ -366,3 +366,36 @@ func AppendSymptomToDisease(context *gin.Context) {
 	message := fmt.Sprintf("Berhasil menambahkan gejala %s dalam Penyakit %s", symptom.SymptomName, disease.DiseaseName)
 	context.JSON(http.StatusOK, gin.H{"message": message, "status": "success"})
 }
+
+func DeleteSymptomFromDisease(context *gin.Context) {
+	var appender app.DiseaseSymptomForm
+	if err := context.ShouldBindJSON(&appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	if _, err := govalidator.ValidateStruct(appender); err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	var symptom models.Symptom
+	if err := database.Instance.Where("id = ?", appender.SymptomID).First(&symptom).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Gejala tidak ditemukan", "status": "error"})
+		return
+	}
+
+	var disease models.Disease
+	if err := database.Instance.Where("id = ?", appender.DiseaseID).First(&disease).Error; err != nil {
+		context.JSON(http.StatusBadRequest, gin.H{"message": "Penyakit tidak ditemukan", "status": "error"})
+		return
+	}
+
+	if err := database.Instance.Model(&disease).Association("DiseaseSymptom").Delete(&symptom); err != nil {
+		context.JSON(http.StatusInternalServerError, gin.H{"message": err.Error(), "status": "error"})
+		return
+	}
+
+	message := fmt.Sprintf("Berhasil menghapus gejala %s dalam Penyakit %s", symptom.SymptomName, disease.DiseaseName)
+	context.JSON(http.StatusOK, gin.H{"message": message, "status": "success"})
+}

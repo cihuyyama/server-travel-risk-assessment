@@ -1,7 +1,6 @@
 package database
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"os"
@@ -51,18 +50,8 @@ func NewMockDB() (*gorm.DB, sqlmock.Sqlmock) {
 }
 
 func Initialize() {
-
-	connectionString := fmt.Sprintf("%s:@tcp(%s:%s)/", os.Getenv("DB_USER"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"))
-
-	db, err := sql.Open("mysql", connectionString)
-	if err != nil {
-		panic(err)
+	tx := Instance.Exec("CREATE DATABASE IF NOT EXISTS " + os.Getenv("DB_NAME"))
+	if tx.Error != nil {
+		log.Fatal(tx.Error)
 	}
-	defer db.Close()
-
-	_, err = db.Exec("CREATE DATABASE IF NOT EXISTS " + os.Getenv("DB_NAME"))
-	if err != nil {
-		panic(err)
-	}
-	db.Close()
 }

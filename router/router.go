@@ -91,6 +91,7 @@ func SetupRouter() *gin.Engine {
 		protectedDisease.POST("/diseases/append", controllers.AppendDisease)
 		protectedDisease.DELETE("/diseases/append", controllers.UnappendDisease)
 		protectedDisease.POST("/diseases/append/symptom", controllers.AppendSymptomToDisease)
+		protectedDisease.DELETE("/diseases/append/symptom", controllers.DeleteSymptomFromDisease)
 	}
 
 	protectedLogs := r.Group("/api")
